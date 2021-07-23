@@ -3,10 +3,10 @@
   "private": true,
   "version": "3.5.7",
   "description": "🐻 Bear necessities for state management in React",
-  "main": "./cjs/index.cjs",
-  "module": "./esm/index.mjs",
+  "main": "./index.js",
+  "module": "./esm/index.js",
   "type": "commonjs",
-  "types": "./cjs/index.d.ts",
+  "types": "./index.d.ts",
   "files": [
     "**"
   ],
@@ -14,33 +14,33 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./index.d.ts",
-      "module": "./esm/index.mjs",
-      "import": "./esm/index.mjs",
-      "default": "./cjs/index.cjs"
+      "module": "./esm/index.js",
+      "import": "./esm/index.js",
+      "default": "./index.js"
     },
     "./vanilla": {
       "types": "./vanilla.d.ts",
-      "module": "./esm/vanilla.mjs",
-      "import": "./esm/vanilla.mjs",
-      "default": "./cjs/vanilla.cjs"
+      "module": "./esm/vanilla.js",
+      "import": "./esm/vanilla.js",
+      "default": "./vanilla.js"
     },
     "./middleware": {
       "types": "./middleware.d.ts",
-      "module": "./esm/middleware.mjs",
-      "import": "./esm/middleware.mjs",
-      "default": "./cjs/middleware.cjs"
+      "module": "./esm/middleware.js",
+      "import": "./esm/middleware.js",
+      "default": "./middleware.js"
     },
     "./shallow": {
       "types": "./shallow.d.ts",
-      "module": "./esm/shallow.mjs",
-      "import": "./esm/shallow.mjs",
-      "default": "./cjs/shallow.cjs"
+      "module": "./esm/shallow.js",
+      "import": "./esm/shallow.js",
+      "default": "./shallow.js"
     },
     "./context": {
       "types": "./context.d.ts",
-      "module": "./esm/context.mjs",
-      "import": "./esm/context.mjs",
-      "default": "./cjs/context.cjs"
+      "module": "./esm/context.js",
+      "import": "./esm/context.js",
+      "default": "./context.js"
     }
   },
   "sideEffects": false,
