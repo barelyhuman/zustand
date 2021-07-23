@@ -1,4 +1,4 @@
-import shallow from '../src/shallow'
+import {shallow} from '../src/shallow'
 
 describe('shallow', () => {
   it('compares primitive values', () => {

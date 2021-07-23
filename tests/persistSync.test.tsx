@@ -1,4 +1,4 @@
-import create from '../src/index'
+import {create} from '../src/index'
 import { persist } from '../src/middleware'
 
 const createPersistantStore = (initialValue: string | null) => {

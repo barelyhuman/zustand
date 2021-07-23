@@ -1,6 +1,6 @@
 import React from 'react'
 import { act, cleanup, render } from '@testing-library/react'
-import create from '../src/index'
+import {create} from '../src/index'
 import { persist } from '../src/middleware'
 
 const createPersistantStore = (initialValue: string | null) => {

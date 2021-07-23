@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useReducer, useRef } from 'react'
-import createImpl, {
+import {
+  create as createImpl,
   Destroy,
   EqualityChecker,
   GetState,
@@ -30,7 +31,7 @@ export interface UseStore<T extends State> {
   destroy: Destroy
 }
 
-export default function create<TState extends State>(
+export function create<TState extends State>(
   createState: StateCreator<TState> | StoreApi<TState>
 ): UseStore<TState> {
   const api: StoreApi<TState> =

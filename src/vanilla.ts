@@ -7,7 +7,7 @@ export type PartialState<
   K2 extends keyof T = K1,
   K3 extends keyof T = K2,
   K4 extends keyof T = K3
-> =
+  > =
   | (Pick<T, K1> | Pick<T, K2> | Pick<T, K3> | Pick<T, K4> | T)
   | ((state: T) => Pick<T, K1> | Pick<T, K2> | Pick<T, K3> | Pick<T, K4> | T)
 export type StateSelector<T extends State, U> = (state: T) => U
@@ -29,7 +29,7 @@ export type SetState<T extends State> = {
     K2 extends keyof T = K1,
     K3 extends keyof T = K2,
     K4 extends keyof T = K3
-  >(
+    >(
     partial: PartialState<T, K1, K2, K3, K4>,
     replace?: boolean
   ): void
@@ -48,7 +48,7 @@ export type StateCreator<T extends State, CustomSetState = SetState<T>> = (
   api: StoreApi<T>
 ) => T
 
-export default function create<TState extends State>(
+export function create<TState extends State>(
   createState: StateCreator<TState>
 ): StoreApi<TState> {
   let state: TState

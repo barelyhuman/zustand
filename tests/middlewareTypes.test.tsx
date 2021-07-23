@@ -1,6 +1,6 @@
 import { produce } from 'immer'
 import type { Draft } from 'immer'
-import create, { UseStore } from '../src'
+import  {create, UseStore } from '../src'
 import { State, StateCreator } from '../src/vanilla'
 import { devtools, NamedSet, persist } from '../src/middleware'
 

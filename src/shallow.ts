@@ -1,4 +1,4 @@
-export default function shallow<T, U>(objA: T, objB: U) {
+export function shallow<T, U>(objA: T, objB: U) {
   if (Object.is(objA, objB)) {
     return true
   }

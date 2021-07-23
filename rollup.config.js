@@ -44,7 +44,7 @@ function createDeclarationConfig(input, output) {
 function createESMConfig(input, output) {
   return {
     input,
-    output: { file: output, format: 'esm' },
+    output: { file: output, format: 'esm', exports: 'named' },
     external,
     plugins: [resolve({ extensions }), getEsbuild('node12'), sizeSnapshot()],
   }
@@ -68,13 +68,13 @@ export default function (args) {
   if (c) {
     c = c.slice('config-'.length)
     return [
-      createCommonJSConfig(`src/${c}.ts`, `dist/cjs/${c}.cjs`),
+      createCommonJSConfig(`src/${c}.ts`, `dist/${c}.cjs`),
       createESMConfig(`src/${c}.ts`, `dist/esm/${c}.mjs`),
     ]
   }
   return [
     createDeclarationConfig('src/index.ts', 'dist'),
-    createCommonJSConfig('src/index.ts', 'dist/cjs/index.cjs'),
+    createCommonJSConfig('src/index.ts', 'dist/index.cjs'),
     createESMConfig('src/index.ts', 'dist/esm/index.mjs'),
   ]
 }

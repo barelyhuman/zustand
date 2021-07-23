@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import create from '../src/index'
-import createContext from '../src/context'
+import {create} from '../src/index'
+import {createContext} from '../src/context'
 
 type CounterState = {
   count: number

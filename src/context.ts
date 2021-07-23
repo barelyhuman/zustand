@@ -14,7 +14,7 @@ export interface UseContextStore<T extends State> {
   <U>(selector: StateSelector<T, U>, equalityFn?: EqualityChecker<U>): U
 }
 
-function createContext<TState extends State>() {
+export function createContext<TState extends State>() {
   const ZustandContext = reactCreateContext<UseStore<TState> | undefined>(
     undefined
   )
@@ -95,4 +95,4 @@ function createContext<TState extends State>() {
   }
 }
 
-export default createContext
+
