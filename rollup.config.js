@@ -70,11 +70,13 @@ export default function (args) {
     return [
       createCommonJSConfig(`src/${c}.ts`, `dist/${c}.js`),
       createESMConfig(`src/${c}.ts`, `dist/esm/${c}.js`),
+      createESMConfig(`src/${c}.ts`, `dist/esm/${c}.mjs`),
     ]
   }
   return [
     createDeclarationConfig('src/index.ts', 'dist'),
     createCommonJSConfig('src/index.ts', 'dist/index.js'),
     createESMConfig('src/index.ts', 'dist/esm/index.js'),
+    createESMConfig('src/index.ts', 'dist/esm/index.mjs'),
   ]
 }
