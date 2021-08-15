@@ -4,55 +4,46 @@
   "version": "3.5.8",
   "description": "🐻 Bear necessities for state management in React",
   "main": "./index.js",
-  "module": "./esm/index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
   "files": [
     "**"
   ],
   "exports": {
     "./package.json": "./package.json",
-    "./*": "./*",
     ".": {
       "types": "./index.d.ts",
-      "module": "./esm/index.js",
-      "import": "./esm/index.js",
+      "module": "./index.mjs",
+      "import": "./index.mjs",
       "default": "./index.js"
     },
     "./vanilla": {
       "types": "./vanilla.d.ts",
-      "module": "./esm/vanilla.js",
-      "import": "./esm/vanilla.js",
+      "module": "./vanilla.mjs",
+      "import": "./vanilla.mjs",
       "default": "./vanilla.js"
     },
     "./middleware": {
       "types": "./middleware.d.ts",
-      "module": "./esm/middleware.js",
-      "import": "./esm/middleware.js",
+      "module": "./middleware.mjs",
+      "import": "./middleware.mjs",
       "default": "./middleware.js"
     },
     "./shallow": {
       "types": "./shallow.d.ts",
-      "module": "./esm/shallow.js",
-      "import": "./esm/shallow.js",
+      "module": "./shallow.mjs",
+      "import": "./shallow.mjs",
       "default": "./shallow.js"
     },
     "./context": {
       "types": "./context.d.ts",
-      "module": "./esm/context.js",
-      "import": "./esm/context.js",
+      "module": "./context.mjs",
+      "import": "./context.mjs",
       "default": "./context.js"
     }
   },
   "sideEffects": false,
   "scripts": {
-    "prebuild": "shx rm -rf dist",
-    "build": "concurrently 'yarn:build:*'",
-    "build:base": "rollup -c",
-    "build:vanilla": "rollup -c --config-vanilla",
-    "build:middleware": "rollup -c --config-middleware",
-    "build:shallow": "rollup -c --config-shallow",
-    "build:context": "rollup -c --config-context",
-    "postbuild": "yarn copy",
     "eslint": "eslint --fix 'src/**/*.{js,ts,jsx,tsx}' 'tests/**/*.{js,ts,jsx,tsx}'",
     "eslint-examples": "eslint --fix 'examples/src/**/*.{js,ts,jsx,tsx}'",
     "eslint:ci": "eslint 'src/**/*.{js,ts,jsx,tsx}' 'tests/**/*.{js,ts,jsx,tsx}'",
@@ -61,7 +52,13 @@
     "test": "jest",
     "test:dev": "jest --watch --no-coverage",
     "test:coverage:watch": "jest --watch",
-    "copy": "shx cp -r dist/src/* dist/esm && shx mv dist/src/* dist && shx rm -rf dist/{src,tests} && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\" && shx cp package.json dist/esm && shx echo '{\"type\":\"module\"}' > dist/esm/package.json && json -I -f dist/esm/package.json"
+    "move:mjs": "mv dist/src/*.js dist;mv dist/context.js dist/context.mjs; mv dist/index.js dist/index.mjs;mv dist/middleware.js dist/middleware.mjs;mv dist/shallow.js dist/shallow.mjs;mv dist/vanilla.js dist/vanilla.mjs;",
+    "build:mjs": "tsc --allowSyntheticDefaultImports --module esnext; npm run move:mjs; rm -rf dist/src; rm -rf dist/tests",
+    "build:cjs": "tsc --esModuleInterop; mv dist/src/*.js dist/; rm -rf dist/src; rm -rf dist/tests",
+    "prebuild": "shx rm -rf dist",
+    "build": "npm run build:mjs;npm run build:cjs;npm run copy:module;npm run build:types",
+    "copy:module": "shx cp package.json dist/package.json;json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\";",
+    "build:types": "tsc --declaration --emitDeclarationOnly; shx mv dist/src/*.d.ts dist; shx rm -rf dist/{src,tests}"
   },
   "prettier": {
     "semi": false,
@@ -122,15 +119,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/plugin-external-helpers": "^7.14.5",
-    "@babel/plugin-transform-react-jsx": "^7.14.9",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/plugin-transform-typescript": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
     "@testing-library/react": "^12.0.0",
     "@types/jest": "^27.0.1",
     "@types/react": "^17.0.17",
@@ -155,9 +143,6 @@
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rollup": "^2.56.2",
-    "rollup-plugin-esbuild": "^4.5.0",
-    "rollup-plugin-size-snapshot": "^0.12.0",
     "shx": "^0.3.3",
     "typescript": "^4.3.5"
   },
