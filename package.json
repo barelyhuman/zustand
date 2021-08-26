@@ -12,32 +12,32 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./index.d.ts",
-      "module": "./index.esm.js",
-      "import": "./index.esm.js",
+      "module": "./esm/index.js",
+      "import": "./esm/index.js",
       "default": "./index.js"
     },
     "./vanilla": {
       "types": "./vanilla.d.ts",
-      "module": "./vanilla.esm.js",
-      "import": "./vanilla.esm.js",
+      "module": "./esm/vanilla.js",
+      "import": "./esm/vanilla.js",
       "default": "./vanilla.js"
     },
     "./middleware": {
       "types": "./middleware.d.ts",
-      "module": "./middleware.esm.js",
-      "import": "./middleware.esm.js",
+      "module": "./esm/middleware.js",
+      "import": "./esm/middleware.js",
       "default": "./middleware.js"
     },
     "./shallow": {
       "types": "./shallow.d.ts",
-      "module": "./shallow.esm.js",
-      "import": "./shallow.esm.js",
+      "module": "./esm/shallow.js",
+      "import": "./esm/shallow.js",
       "default": "./shallow.js"
     },
     "./context": {
       "types": "./context.d.ts",
-      "module": "./context.esm.js",
-      "import": "./context.esm.js",
+      "module": "./esm/context.js",
+      "import": "./esm/context.js",
       "default": "./context.js"
     }
   },
@@ -59,7 +59,8 @@
     "test": "jest",
     "test:dev": "jest --watch --no-coverage",
     "test:coverage:watch": "jest --watch",
-    "copy": "shx mv dist/src/* dist && shx rm -rf dist/{src,tests} && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\""
+    "copy": "shx mv dist/src/* dist && shx rm -rf dist/{src,tests} && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\" && npm run gen:wrapper",
+    "gen:wrapper": "cd dist/; for file in ./*.js; do ../scripts/create-esm-wrapper.js ${file}; done; cd .. ; shx cp ./dist/*.d.ts ./dist/esm; touch dist/esm/package.json; echo '{\"type\":\"module\"}' > dist/esm/package.json; json -I -f dist/esm/package.json; eslint --fix dist/esm/*.js"
   },
   "prettier": {
     "semi": false,

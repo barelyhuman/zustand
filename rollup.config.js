@@ -72,14 +72,10 @@ export default function (args) {
   let c = Object.keys(args).find((key) => key.startsWith('config-'))
   if (c) {
     c = c.slice('config-'.length)
-    return [
-      createCommonJSConfig(`src/${c}.ts`, `dist/${c}.js`),
-      createESMConfig(`src/${c}.ts`, `dist/${c}.esm.js`),
-    ]
+    return [createCommonJSConfig(`src/${c}.ts`, `dist/${c}.js`)]
   }
   return [
     createDeclarationConfig('src/index.ts', 'dist'),
     createCommonJSConfig('src/index.ts', 'dist/index.js'),
-    createESMConfig('src/index.ts', 'dist/index.esm.js'),
   ]
 }
