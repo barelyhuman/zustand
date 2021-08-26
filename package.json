@@ -12,32 +12,32 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./index.d.ts",
-      "module": "./index.mjs",
-      "import": "./index.mjs",
+      "module": "./index.esm.js",
+      "import": "./index.esm.js",
       "default": "./index.js"
     },
     "./vanilla": {
       "types": "./vanilla.d.ts",
-      "module": "./vanilla.mjs",
-      "import": "./vanilla.mjs",
+      "module": "./vanilla.esm.js",
+      "import": "./vanilla.esm.js",
       "default": "./vanilla.js"
     },
     "./middleware": {
       "types": "./middleware.d.ts",
-      "module": "./middleware.mjs",
-      "import": "./middleware.mjs",
+      "module": "./middleware.esm.js",
+      "import": "./middleware.esm.js",
       "default": "./middleware.js"
     },
     "./shallow": {
       "types": "./shallow.d.ts",
-      "module": "./shallow.mjs",
-      "import": "./shallow.mjs",
+      "module": "./shallow.esm.js",
+      "import": "./shallow.esm.js",
       "default": "./shallow.js"
     },
     "./context": {
       "types": "./context.d.ts",
-      "module": "./context.mjs",
-      "import": "./context.mjs",
+      "module": "./context.esm.js",
+      "import": "./context.esm.js",
       "default": "./context.js"
     }
   },

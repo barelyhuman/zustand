@@ -4,7 +4,7 @@
     "minified": 1888,
     "gzipped": 846
   },
-  "index.mjs": {
+  "index.esm.js": {
     "bundled": 3993,
     "minified": 1614,
     "gzipped": 786,
@@ -23,7 +23,7 @@
     "minified": 631,
     "gzipped": 350
   },
-  "vanilla.mjs": {
+  "vanilla.esm.js": {
     "bundled": 1352,
     "minified": 444,
     "gzipped": 288,
@@ -42,7 +42,7 @@
     "minified": 3675,
     "gzipped": 1508
   },
-  "middleware.mjs": {
+  "middleware.esm.js": {
     "bundled": 6679,
     "minified": 3385,
     "gzipped": 1483,
@@ -61,7 +61,7 @@
     "minified": 401,
     "gzipped": 251
   },
-  "shallow.mjs": {
+  "shallow.esm.js": {
     "bundled": 541,
     "minified": 338,
     "gzipped": 217,
@@ -80,7 +80,7 @@
     "minified": 935,
     "gzipped": 466
   },
-  "context.mjs": {
+  "context.esm.js": {
     "bundled": 1516,
     "minified": 840,
     "gzipped": 418,
