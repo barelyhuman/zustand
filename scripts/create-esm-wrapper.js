@@ -15,26 +15,28 @@ function main() {
   const keys = new Set(Object.getOwnPropertyNames(cjsMod))
   keys.delete('__esModule')
 
-  if (keys.has('default')) {
-    const outputString = `// esm-wrapper
-export * from '../${normalizedFile}';
-import mod from '../${normalizedFile}'
-export default mod.default
+  let outputString = `// esm-wrapper
+  export * from '../${normalizedFile}';
   `
 
-    if (!existsSync('esm')) {
-      mkdirSync('esm')
+  let hasDefault = false
+  for (const key of [...keys].sort()) {
+    if (key === 'default') {
+      hasDefault = true
+      outputString += `import mod from '../${normalizedFile}';\nexport default mod.default;`
+      continue
     }
-    return writeFile(`esm/${sourceFile}`, outputString)
+    outputString += `export const ${key} = mod.${key};\n`
   }
 
-  const outputString = `// esm-wrapper
-export * from '../${normalizedFile}';
-export { default } from '../${normalizedFile}';
-  `
+  if (!hasDefault) {
+    outputString += `export { default } from '../${normalizedFile}'`
+  }
+
   if (!existsSync('esm')) {
     mkdirSync('esm')
   }
+
   writeFile(`esm/${sourceFile}`, outputString)
 }
 
