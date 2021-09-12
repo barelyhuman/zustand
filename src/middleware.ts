@@ -160,7 +160,7 @@ export const combine =
   <PrimaryState extends State, SecondaryState extends State>(
     initialState: PrimaryState,
     create: (
-      set: SetState<PrimaryState>,
+      set: NamedSet<PrimaryState>,
       get: GetState<PrimaryState>,
       api: StoreApi<PrimaryState>
     ) => SecondaryState

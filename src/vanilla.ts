@@ -34,6 +34,20 @@ export type SetState<T extends State> = {
     replace?: boolean
   ): void
 }
+
+export type NamedSet<T extends SetState<T>> = {
+  <
+    K1 extends keyof T,
+    K2 extends keyof T = K1,
+    K3 extends keyof T = K2,
+    K4 extends keyof T = K3
+  >(
+    partial: PartialState<T, K1, K2, K3, K4>,
+    replace?: boolean,
+    name?: string
+  ): void
+}
+
 export type GetState<T extends State> = () => T
 export type Destroy = () => void
 export interface StoreApi<T extends State> {
