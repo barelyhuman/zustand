@@ -1,6 +1,6 @@
 {
   "name": "zustand",
-  "private": true,
+  "private": false,
   "version": "4.3.2",
   "description": "🐻 Bear necessities for state management in React",
   "main": "./dist/index.js",
