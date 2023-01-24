@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es2018",
+    "outDir": "dist",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "sourceMap": true,
     "strict": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
@@ -14,6 +17,6 @@
       "zustand/*": ["./src/*.ts"]
     }
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -3,8 +3,8 @@
   "private": true,
   "version": "4.3.2",
   "description": "🐻 Bear necessities for state management in React",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "<4.0": {
       "esm/*": [
@@ -22,70 +22,65 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./esm/index.d.mts",
-        "default": "./esm/index.mjs"
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
       },
-      "types": "./index.d.ts",
-      "module": "./esm/index.js",
-      "default": "./index.js"
+      "types": "./dist/index.d.ts",
+      "module": "./dist/esm/index.js",
+      "default": "./dist/index.js"
     },
     "./vanilla": {
       "import": {
-        "types": "./esm/vanilla.d.mts",
-        "default": "./esm/vanilla.mjs"
+        "types": "./dist/esm/vanilla.d.mts",
+        "default": "./dist/esm/vanilla.mjs"
       },
-      "types": "./vanilla.d.ts",
-      "module": "./esm/vanilla.js",
-      "default": "./vanilla.js"
+      "types": "./dist/vanilla.d.ts",
+      "module": "./dist/esm/vanilla.js",
+      "default": "./dist/vanilla.js"
     },
     "./middleware": {
       "import": {
-        "types": "./esm/middleware.d.mts",
-        "default": "./esm/middleware.mjs"
+        "types": "./dist/esm/middleware.d.mts",
+        "default": "./dist/esm/middleware.mjs"
       },
-      "types": "./middleware.d.ts",
-      "module": "./esm/middleware.js",
-      "default": "./middleware.js"
+      "types": "./dist/middleware.d.ts",
+      "module": "./dist/esm/middleware.js",
+      "default": "./dist/middleware.js"
     },
     "./middleware/immer": {
       "import": {
-        "types": "./esm/middleware/immer.d.mts",
-        "default": "./esm/middleware/immer.mjs"
+        "types": "./dist/esm/middleware/immer.d.mts",
+        "default": "./dist/esm/middleware/immer.mjs"
       },
-      "types": "./middleware/immer.d.ts",
-      "module": "./esm/middleware/immer.js",
-      "default": "./middleware/immer.js"
+      "types": "./dist/middleware/immer.d.ts",
+      "module": "./dist/esm/middleware/immer.js",
+      "default": "./dist/middleware/immer.js"
     },
     "./shallow": {
       "import": {
-        "types": "./esm/shallow.d.mts",
-        "default": "./esm/shallow.mjs"
+        "types": "./dist/esm/shallow.d.mts",
+        "default": "./dist/esm/shallow.mjs"
       },
-      "types": "./shallow.d.ts",
-      "module": "./esm/shallow.js",
-      "default": "./shallow.js"
+      "types": "./dist/shallow.d.ts",
+      "module": "./dist/esm/shallow.js",
+      "default": "./dist/shallow.js"
     },
     "./context": {
       "import": {
-        "types": "./esm/context.d.mts",
-        "default": "./esm/context.mjs"
+        "types": "./dist/esm/context.d.mts",
+        "default": "./dist/esm/context.mjs"
       },
-      "types": "./context.d.ts",
-      "module": "./esm/context.js",
-      "default": "./context.js"
+      "types": "./dist/context.d.ts",
+      "module": "./dist/esm/context.js",
+      "default": "./dist/context.js"
     }
   },
   "sideEffects": false,
   "scripts": {
     "prebuild": "shx rm -rf dist",
     "build": "concurrently -m 8 'yarn:build:*'",
-    "build:base": "rollup -c",
-    "build:vanilla": "rollup -c --config-vanilla",
-    "build:middleware": "rollup -c --config-middleware",
-    "build:middleware:immer": "rollup -c --config-middleware_immer",
-    "build:shallow": "rollup -c --config-shallow",
-    "build:context": "rollup -c --config-context",
-    "postbuild": "yarn copy && yarn patch-esm-ts",
+    "build:tsc": "tsc --module commonjs --outDir dist",
+    "build:tsc:esm": "tsc --module esnext --outDir dist/esm",
     "prettier": "prettier \"*.{js,json,md}\" \"{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}\" --write",
     "prettier:ci": "prettier '*.{js,json,md}' '{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}' --list-different",
     "eslint": "eslint --fix '*.{js,json}' '{src,tests}/**/*.{ts,tsx}'",
@@ -95,7 +90,6 @@
     "test:ci": "jest",
     "test:dev": "jest --watch --no-coverage",
     "test:coverage:watch": "jest --watch",
-    "copy": "shx cp -r dist/src/* dist/esm && shx cp -r dist/src/* dist && shx rm -rf dist/src && shx rm -rf dist/{src,tests} && downlevel-dts dist dist/ts3.4 && shx cp package.json readme.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this.jest=undefined;\"",
     "patch-esm-ts": "node -e \"require('shelljs').find('dist/esm/**/*.d.ts').forEach(f=>require('fs').copyFileSync(f,f.replace(/\\.ts$/,'.mts')))\"; shx sed -i \"s/ from '(\\..*)';$/ from '\\$1.mjs';/\" 'dist/esm/**/*.d.mts'; shx sed -i \"s/^declare module '(\\..*)'/declare module '\\$1.mjs'/\" 'dist/esm/**/*.d.mts'"
   },
   "engines": {
