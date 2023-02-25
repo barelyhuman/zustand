@@ -26,9 +26,9 @@ async function fixExports() {
 
     exportContexts.forEach((ctx) => {
       if (ctx === 'default') {
-        code += 'module.exports = exports.default;'
+        code += 'module.exports = exports.default;\n'
       } else {
-        code += `module.exports.${ctx[0]} = ${ctx[1]};`
+        code += `module.exports.${ctx[0]} = ${ctx[1]};\n`
       }
     })
     code += 'exports.default = module.exports;'
