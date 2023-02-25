@@ -85,7 +85,7 @@
     "build:middleware:immer": "rollup -c --config-middleware_immer",
     "build:shallow": "rollup -c --config-shallow",
     "build:context": "rollup -c --config-context",
-    "postbuild": "yarn copy && yarn patch-esm-ts",
+    "postbuild": "yarn copy && yarn patch-esm-ts && node scripts/postbuild.js",
     "prettier": "prettier \"*.{js,json,md}\" \"{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}\" --write",
     "prettier:ci": "prettier '*.{js,json,md}' '{examples,src,tests,docs}/**/*.{js,jsx,ts,tsx,md,mdx}' --list-different",
     "eslint": "eslint --fix '*.{js,json}' '{src,tests}/**/*.{ts,tsx}'",
@@ -213,6 +213,7 @@
     "rollup": "^3.15.0",
     "rollup-plugin-esbuild": "^5.0.0",
     "shx": "^0.3.4",
+    "tiny-glob": "^0.2.9",
     "ts-jest": "^29.0.5",
     "typescript": "^4.9.5"
   },
