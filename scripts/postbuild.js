@@ -18,15 +18,16 @@ async function fixExports() {
     for (const exportStmt of exportDefs) {
       exportContexts.push([exportStmt[1], exportStmt[2]])
     }
-    const defIndex = exportContexts.indexOf('default')
+    const defIndex = exportContexts.findIndex((x) => x[0] === 'default')
     if (defIndex > -1) {
+      const ctxValue = exportContexts[defIndex]
       exportContexts.splice(defIndex, 1)
-      exportContexts.unshift('default')
+      exportContexts.unshift(ctxValue)
     }
 
     exportContexts.forEach((ctx) => {
-      if (ctx === 'default') {
-        code += 'module.exports = exports.default;\n'
+      if (ctx[0] === 'default') {
+        code += `module.exports = ${ctx[1]};\n`
       } else {
         code += `module.exports.${ctx[0]} = ${ctx[1]};\n`
       }
